@@ -32,14 +32,15 @@ optional_step_1.5_plot_baseline_sales(df_baseline = df_baseline)
 
 df_ads_step2 <- step_2_ads_spend_biased(
   my_variables = my_variables,
-  campaign_spend_mean = 329000,
-  campaign_spend_std = 10000,
-  max_min_proportion_on_each_channel <- c(0.85, 0.95) #ここで予算の分担を行っている
+  spend_base <- c(100000, 200000),
+  spend_trend <- c(0.3, -0.2),
+  spend_temp_var <- c(1.3, 2.2),
+  spend_temp_coef_mean <- c(5000, 7000),
+  spend_temp_coef_sd <- c(500, 700),
+  spend_error_std <- c(10000, 10000),
+  spend_season_diff_week <- c(0, 0)
 )
 optional_step_2.5_plot_ad_spend(df_ads_step2 = df_ads_step2)
-
-df_ads_step2
-
 
 ## Step 3
 df_ads_step3 <- step_3_generate_media(
