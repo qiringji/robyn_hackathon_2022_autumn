@@ -165,7 +165,8 @@ print(calib)
 print("==================")
 
 # Directory where you want to export results to (will create new folders)
-robyn_object <- paste("~/Desktop/", paste(dgp_name, "/", sep=""), "prophet_", use_prophet, "_calib_", calib, sep="")
+robyn_object <- paste("~/Desktop/", paste(dgp_name, "/", sep=""), "prophet_", use_prophet, "_calib_", paste(calib, collapse="_"), sep="")
+print(robyn_object)
 dir.create(robyn_object[length(robyn_object)], showWarnings = FALSE, recursive=TRUE)
 
 if (use_prophet) {
