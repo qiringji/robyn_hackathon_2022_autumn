@@ -1,4 +1,5 @@
-## todo 
+
+# Funcion of biased media consumptions.
 
 step_2_ads_spend_biased <- function(my_variables = my_variables,
                                     spend_base,
@@ -42,9 +43,9 @@ step_2_ads_spend_biased <- function(my_variables = my_variables,
   for(i in 1:n_channels) {
     base <- rep(spend_base[i], n_campaigns) #横線
     trend_cal <- (spend_trend[i] / n_campaigns) * spend_base[i] 
-    trend <- trend_cal*campaigns # トレンド
+    trend <- trend_cal*campaigns # Trends
     temp <- spend_temp_var[i] * sin((campaigns - spend_season_diff_week[i])*3.14/26)
-    seasonality <- rnorm(1, mean = spend_temp_coef_mean[i], sd = spend_temp_coef_sd[i]) * temp # 季節性
+    seasonality <- rnorm(1, mean = spend_temp_coef_mean[i], sd = spend_temp_coef_sd[i]) * temp # Seasonality
     error <- rnorm(n_campaigns, mean = 0, sd = spend_error_std[i] )
     spend <- base + trend + seasonality + error
     df_ads_step2_biased[i + 1] = spend
@@ -63,8 +64,5 @@ step_2_ads_spend_biased <- function(my_variables = my_variables,
     ungroup() %>%
     select(campaign_id, channel, total_campaign_spend, channel_prop_spend, spend_channel)
   
-  
   return(df_ads_step2_biased)
-  
-  
 }

@@ -66,5 +66,6 @@ step_8_calculate_roi <- function(
     roi_value_list[j] <- roi
   }
 
+# ADD: Return true ROI list.
 return (roi_list)
 }
