@@ -7,26 +7,26 @@ We add an implementation of realistic data generation processes to the siMMMulat
 
 ## Sample
 ### DGP1
-|Sales|Adspend|
+|Sales|Ad spends|
 |---|---|
-|![]()|![]()|
+|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp1_sales.png)|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp1_spends.png)|
 
 ### DGP2
-|Sales|Adspend|
+|Sales|Ad spends|
 |---|---|
-|![]()|![]()|
+|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp2_sales.png)|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp2_spends.png)|
 
 ### DGP3
-|Sales|Adspend|
+|Sales|Ad spends|
 |---|---|
-|![]()|![]()|
+|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp3_sales.png)|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp3_spends.png)|
 
 ### DGP4
-|Sales|Adspend|
+|Sales|Ad spends|
 |---|---|
-|![]()|![]()|
+|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp4_sales.png)|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp4_spends.png)|
 
 ### DGP5
-|Sales|Adspend|
+|Sales|Ad spends|
 |---|---|
-|![]()|![]()|
+|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp5_sales.png)|![](https://raw.githubusercontent.com/qiringji/robyn_hackathon_2022_autumn/d00493acb76366e7524653f6b651759644302930/R/data_gen/image/dgp5_spends.png)|
