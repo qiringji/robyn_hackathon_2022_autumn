@@ -8,7 +8,7 @@ library('tidyr')
 # install.packages("tidyverse")
 library('tidyverse')
 
-dgp_name <- 'RQ2_dgp3_1000_3_01'
+dgp_name <- 'RQ2_dgp1_1000_3_01'
 revenue_per_conv <- 1
 
 ####### Stage1. Data Generation: DGP No.3 #######
@@ -17,17 +17,18 @@ my_variables <- step_0_define_basic_parameters(
   channels_impressions = c("Facebook", "TV"),
   channels_clicks = c(),
   frequency_of_campaigns = 1,
-  true_cvr = c(0.05, 0.02),
+  true_cvr = c(0.015, 0.02),
   revenue_per_conv = 1
 )
+
 
 df_baseline <- step_1_create_baseline(
   my_variables = my_variables,
   base_p = 500000,
-  trend_p = 0.05,
+  trend_p = 1.05,
   temp_var = 8,
   temp_coef_mean = 5000,
-  temp_coef_sd = 5000,
+  temp_coef_sd = 500,
   error_std = 5000
 )
 
@@ -38,11 +39,11 @@ optional_step_1.5_plot_baseline_sales(df_baseline = df_baseline)
 df_ads_step2 <- step_2_ads_spend_biased(
   my_variables = my_variables,
   spend_base <- c(100000, 200000),
-  spend_trend <- c(0.0, 0.0),
-  spend_temp_var <- c(0.0, 0.0),
+  spend_trend <- c(0.3, -0.2),
+  spend_temp_var <- c(1.3, 2.2),
   spend_temp_coef_mean <- c(5000, 7000),
   spend_temp_coef_sd <- c(500, 700),
-  spend_error_std <- c(25000, 50000),
+  spend_error_std <- c(10000, 10000),
   spend_season_diff_week <- c(0, 0)
 )
 optional_step_2.5_plot_ad_spend(df_ads_step2 = df_ads_step2)
@@ -51,12 +52,15 @@ optional_step_2.5_plot_ad_spend(df_ads_step2 = df_ads_step2)
 df_ads_step3 <- step_3_generate_media(
   my_variables = my_variables,
   df_ads_step2 = df_ads_step2,
-  true_cpm = c(10, 10),
+  true_cpm = c(6, 20),
   true_cpc = c(),
   mean_noisy_cpm_cpc = c(1, 0.05),
   std_noisy_cpm_cpc = c(0.01, 0.15)
 )
 df_ads_step3
+typeof(dframe_ads_step3)
+class(df_ads_step3)
+df_ads_step3$channel
 
 ## Visualization of imp.
 p3 <- ggplot(
@@ -73,7 +77,7 @@ df_ads_step4 <- step_4_generate_cvr(
   my_variables = my_variables,
   df_ads_step3 = df_ads_step3,
   # Setting of noisy CVR
-  mean_noisy_cvr = c(0, 0),
+  mean_noisy_cvr = c(0, 0.0001), 
   std_noisy_cvr = c(0.008, 0.008)
 )
 colnames(df_ads_step4)
@@ -83,10 +87,6 @@ p4 <- ggplot(data = select(.data = df_ads_step4,
                  y = noisy_cvr,
                  group = channel)) + geom_line(aes(color = channel)) #+ geom_point(aes(color = channel))
 p4
-
-# Save noisy & true cvr for analytics.
-write.csv(df_ads_step4[c("campaign_id", "channel", "noisy_cvr", "true_cvr")], file=paste(dgp_name, "noisy_true_cvr.csv", sep="_"), row.names=F)
-
 df_ads_step5a_before_mmm <- step_5a_pivot_to_mmm_format(my_variables = my_variables,
                                                         df_ads_step4 = df_ads_step4)
 df_ads_step5b <- step_5b_decay(
@@ -100,11 +100,9 @@ df_ads_step5c <- step_5c_diminishing_returns(
   alpha_saturation = c(4, 3),
   gamma_saturation = c(0.2, 0.3)
 )
-
 df_ads_step6 <- step_6_calculating_conversions(my_variables = my_variables,
                                                df_ads_step5c = df_ads_step5c)
 df_ads_step6
-
 df_ads_step7 <- step_7_expanded_df(
   my_variables = my_variables,
   df_ads_step6 = df_ads_step6,
@@ -114,7 +112,8 @@ df_ads_step7 <- step_7_expanded_df(
 df_final <- step_9_final_df(my_variables = my_variables,
                             df_ads_step7 = df_ads_step7)
 df_final$baseline_sales <- df_baseline$baseline_sales
-# todo: これをfor文的にやる方法
+
+# todo: for loop
 df_final$tv_incremental <-
   df_final$baseline_sales + df_ads_step7$conv_TV
 df_final$fb_incremental <-
@@ -142,7 +141,7 @@ df_final %>%
              group = rev_type)) + geom_line(aes(color = rev_type)) #+ geom_point(aes(color = rev_type))
 
 true_roi <- step_8_calculate_roi(my_variables = my_variables,
-                                 df_ads_step7 = df_ads_step7)
+                     df_ads_step7 = df_ads_step7)
 
 df_ads_step7
 
