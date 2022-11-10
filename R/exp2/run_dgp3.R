@@ -72,6 +72,7 @@ p3
 df_ads_step4 <- step_4_generate_cvr(
   my_variables = my_variables,
   df_ads_step3 = df_ads_step3,
+  # Setting of noisy CVR
   mean_noisy_cvr = c(0, 0),
   std_noisy_cvr = c(0.008, 0.008)
 )
