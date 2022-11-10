@@ -1,6 +1,9 @@
+# install.packages("facebookexperimental/siMMMulator")
+# install.packages("tidyverse")
 library(siMMMulator)
 library(tidyverse)
 
+## Step 0
 my_variables <- step_0_define_basic_parameters(
   years = 5,
   channels_impressions = c("Facebook", "TV"),
@@ -10,7 +13,7 @@ my_variables <- step_0_define_basic_parameters(
   revenue_per_conv = 1
 )
 
-
+## Step 1
 df_baseline <- step_1_create_baseline(
   my_variables = my_variables,
   base_p = 500000,
@@ -20,14 +23,17 @@ df_baseline <- step_1_create_baseline(
   temp_coef_sd = 500,
   error_std = 5000
 )
+
+## Step 2
 optional_step_1.5_plot_baseline_sales(df_baseline = df_baseline)
 df_ads_step2 <- step_2_ads_spend(
   my_variables = my_variables,
   campaign_spend_mean = 329000,
   campaign_spend_std = 10000,
-  max_min_proportion_on_each_channel <- c(0.85, 0.95) #ここで予算の分担を行っている
+  max_min_proportion_on_each_channel <- c(0.85, 0.95) # Budget allocation.
 )
 optional_step_2.5_plot_ad_spend(df_ads_step2 = df_ads_step2)
+
 ## Step 3
 df_ads_step3 <- step_3_generate_media(
   my_variables = my_variables,
@@ -41,7 +47,8 @@ df_ads_step3
 typeof(dframe_ads_step3)
 class(df_ads_step3)
 df_ads_step3$channel
-## imp数の可視化
+
+## Visialization of imp.
 p3 <- ggplot(
   data = select(.data = df_ads_step3,
                 c(
@@ -52,6 +59,8 @@ p3 <- ggplot(
       group = channel)
 ) + geom_line(aes(color = channel)) #+ geom_point(aes(color = channel))
 p3
+
+## Step 4
 df_ads_step4 <- step_4_generate_cvr(
   my_variables = my_variables,
   df_ads_step3 = df_ads_step3,
@@ -59,12 +68,15 @@ df_ads_step4 <- step_4_generate_cvr(
   std_noisy_cvr = c(0.001, 0.002)
 )
 colnames(df_ads_step4)
+
 p4 <- ggplot(data = select(.data = df_ads_step4,
                            c(campaign_id, channel, noisy_cvr)),
              aes(x = campaign_id,
                  y = noisy_cvr,
                  group = channel)) + geom_line(aes(color = channel)) #+ geom_point(aes(color = channel))
 p4
+
+## Step 5
 df_ads_step5a_before_mmm <- step_5a_pivot_to_mmm_format(my_variables = my_variables,
                                                         df_ads_step4 = df_ads_step4)
 df_ads_step5b <- step_5b_decay(
@@ -72,26 +84,35 @@ df_ads_step5b <- step_5b_decay(
   df_ads_step5a_before_mmm = df_ads_step5a_before_mmm,
   true_lambda_decay = c(0.1, 0.2)
 )
+
 df_ads_step5c <- step_5c_diminishing_returns(
   my_variables = my_variables,
   df_ads_step5b = df_ads_step5b,
   alpha_saturation = c(4, 3),
   gamma_saturation = c(0.2, 0.3)
 )
+
+## Step 6
 df_ads_step6 <- step_6_calculating_conversions(my_variables = my_variables,
-                                               df_ads_step5c = df_ads_step5c)
 df_ads_step6
+
+## Step 7
 df_ads_step7 <- step_7_expanded_df(
   my_variables = my_variables,
   df_ads_step6 = df_ads_step6,
   df_baseline = df_baseline
 )
+
+## Step 8
 step_8_calculate_roi(my_variables = my_variables,
                      df_ads_step7 = df_ads_step7)
+
+## Step 9
 df_final <- step_9_final_df(my_variables = my_variables,
                             df_ads_step7 = df_ads_step7)
 df_final$baseline_sales <- df_baseline$baseline_sales
-# todo: これをfor文的にやる方法
+
+# TODO: Write for loop.
 df_final$tv_incremental <-
   df_final$baseline_sales + df_ads_step7$conv_TV
 df_final$fb_incremental <-
