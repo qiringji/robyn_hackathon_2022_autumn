@@ -1,6 +1,6 @@
 ####### Stage1. Data Generation #######
-source('../data_gen/_step_8_calculater_roi.R')
-source('../data_gen/step_2_ads_spend_biased.R')
+source('../data_gen/functions/_step_8_calculater_roi.R')
+source('../data_gen/functions/step_2_ads_spend_biased.R')
 library('siMMMulator')
 library('tidyr')
 library('tidyverse')
