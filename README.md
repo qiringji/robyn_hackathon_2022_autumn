@@ -25,6 +25,9 @@ We try to adress these two questions by conducting analysis with synthetic data.
     - Cyclic seasonality and events.
 - `R/data_gen/`.
 
+![image](https://user-images.githubusercontent.com/40241649/201340102-64a45ceb-7000-41dd-8ebb-36698ec68a6b.png)
+![image](https://user-images.githubusercontent.com/40241649/201340149-720149e3-b795-4c85-add8-d08458885bcf.png)
+
 ### Experiment #1：Variety of experiments
 #### Scripts
 - `R/exp1/`
@@ -50,7 +53,8 @@ We try to adress these two questions by conducting analysis with synthetic data.
 - it is better that conduct experiments on as much media as possible.
 
 ##### Detail
-[image]
+![image](https://user-images.githubusercontent.com/40241649/201340234-5676808f-8de2-4d89-8fc6-c34effa4d1ce.png)
+
 
 ### Experiment #2：Number of experiments
 #### Scripts
@@ -70,7 +74,11 @@ We try to adress these two questions by conducting analysis with synthetic data.
 
 
 ##### Detail
-[image]
+  
+![image](https://user-images.githubusercontent.com/40241649/201340312-fb3c3145-4461-4316-a656-0500b6e9dbf2.png)
+
+
+
 
 ## Challenges we ran into
 
