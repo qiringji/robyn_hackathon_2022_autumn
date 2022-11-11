@@ -12,17 +12,18 @@ We try to adress these two questions by conducting analysis with synthetic data.
 ## What it does
 
 - We add an implementation of realistic data generation processes to the siMMMulator, which is an open source R-package for generating dataset for MMM.
-- We conduct experiments on multiple media make Robyn's ROI estimation much better.
-- We conduct multi-time experiment on each media make Robyn's ROI estimation accurate.
+- We conduct analysis to confirm experiments on multiple media make Robyn's ROI estimation much better.
+- We conduct analysis to confirm multi-time experiment on each media make Robyn's ROI estimation accurate.
 
 ## How we built it
 
 ### Preparation：Add implementations in siMMMulator
+- There are a lot of biases in real-world data. The biases make Robyn's ROI estimation inaccurate.
 - We add implementations to siMMMulator.
     - Correlation between media spend and organic sales.
     - Correlation between media spends.
     - Cyclic seasonality and events.
-- See Github repository in detail: `R/data_gen/`.
+- `R/data_gen/`.
 
 ### Experiment #1：Variety of experiments
 #### Scripts
@@ -40,12 +41,16 @@ We try to adress these two questions by conducting analysis with synthetic data.
 - Evaluation metrics
     - Average of absolute percentage error of ROI.
 - Assumption:
-    - No estimating error exists.
+    - No error exists in the estimation of causal effect from RCT results.
 
 #### Results
+##### Summary
 - Calibrating two media achieve smallest MAPE of ROI.
 - Even though calibration doesn't cover all of media, MAPE of ROI decrease.
 - it is better that conduct experiments on as much media as possible.
+
+##### Detail
+[image]
 
 ### Experiment #2：Number of experiments
 #### Scripts
@@ -60,11 +65,16 @@ We try to adress these two questions by conducting analysis with synthetic data.
     - MAPE of ROI
 
 #### Results
+##### Summary
 - Multi-time experiment on each media make Robyn's ROI estimation accurate.
+
+
+##### Detail
+[image]
 
 ## Challenges we ran into
 
-- Creating realistic data generation assumptions.    
+- Creating realistic data generation assumptions.
 - Understanding the internal structure (optimization, various parameters) from Robyn code around calibration.
 
 ## Accomplishments that we're proud of
