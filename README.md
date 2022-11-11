@@ -2,10 +2,15 @@
 
 ## Inspiration
 
-MMM is designed to guide optimal advertising investment decisions, but MMM has its duality. One side of the goals of MMM is convincing explanation to customers, and another side is a better estimating of ROI. When we are calibrating with results from experiments, we often get two questions.
 
-- On which media?：“Which media should we conduct experiments on? We do a lot of experiments on facebook. Is it enough?"
-- How many times?：“How many experiments should we conduct on instagram?”
+
+MMM allows us to calibrate with the estimated causal effects from RCT or quasi-experiments.
+But no existing studies clear the following questions
+
+- On which media?：
+    - We confuse which media we should conduct experiments on or if it's enough to do a lot of experiments only on single media.
+- How many times?：
+    - No answer exists on how many experiments we conduct on single media to estimate ROI accurately.
 
 We try to adress these two questions by conducting analysis with synthetic data.
 
@@ -54,7 +59,9 @@ We try to adress these two questions by conducting analysis with synthetic data.
 
 ##### Detail
 ![image](https://user-images.githubusercontent.com/40241649/201340234-5676808f-8de2-4d89-8fc6-c34effa4d1ce.png)
-
+- Each dot is the average MAPE of models after clustering in Robyn, and each bar is the variance. the number of models is from 4 to 7.
+- The best result is calibration by the causal estimates on two channels (FB and TV).
+- Only calibration on TV or FB has much better than the calibration.
 
 ### Experiment #2：Number of experiments
 #### Scripts
@@ -103,7 +110,11 @@ We try to adress these two questions by conducting analysis with synthetic data.
 - Theoretical guarantees.
 - Implementation of data generation assumptions for complex relationships between organic sales and media spends, etc.
     - Reverse causality：Higher sales allow for a larger budget allocation.
-    - Limited range of data：MMM model is fitted to limited historical data and expected to provide insights outside the scope of this data. （e.g., Wide range ad spend）
+    - Robust extrapolation:：MMM model is fitted to limited historical data and expected to provide insights outside the scope of this data. （e.g., Wide range ad spend）
     - Funnel effects [Angrist and Krueger, 1999]：An ad channel also impacts the level of another ad channel. That will lead to biased estimates.
 - Cost-optimal design of number of experiments.
 
+
+# Refference
+- Angrist, J. & Krueger, A. B. (1999). Empirical strategies in labor economics. In O. C. Ashenfelter & D. Card (Eds.), Handbook of labor economics (Vol. 3, pp. 1277–1366).
+- Chan, David, and Mike Perry. "Challenges and opportunities in media mix modeling." (2017).
