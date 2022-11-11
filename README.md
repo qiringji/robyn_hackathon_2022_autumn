@@ -70,7 +70,7 @@ We try to adress these two questions by conducting analysis with synthetic data.
 
 ##### Detail
 ![image](https://user-images.githubusercontent.com/40241649/201340234-5676808f-8de2-4d89-8fc6-c34effa4d1ce.png)
-- MAPE of ROI is calculated as $\frac{1}{M} \sum_m^M |\mathrm{ROI}_m - \hat{\mathrm{ROI}_m}|$. 
+- MAPE of ROI is calculated as $$\frac{1}{M} \sum_m^M |\mathrm{ROI}_m - \hat{\mathrm{ROI}_m}|$$. 
 - $\mathrm{ROI}_m$ is a ground truth ROI of channel $m$ , and we calculate if from `true_cvr`, `CPM`, and `spend` in siMMMulator. 
 - $\hat{\mathrm{ROI}_m}$ is an estimated ROI of channel $m$ and a Robyn's output.
 - Each dot is the average MAPE of models after clustering in Robyn, and each bar is the variance. the number of models is from 4 to 7.
