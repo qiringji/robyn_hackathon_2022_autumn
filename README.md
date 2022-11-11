@@ -2,10 +2,9 @@
 
 ## Inspiration
 
+As [Chan et al. 2017] claim, general MMM does not produce causal results but correlational results.
 
-
-MMM allows us to calibrate with the estimated causal effects from RCT or quasi-experiments.
-But no existing studies clear the following questions
+To tackle with this problem, Robyn allows us to calibrate with the estimated causal effects from RCT or quasi-experiments. But no existing studies clarify the following questions.
 
 - On which media?：
     - We confuse which media we should conduct experiments on or if it's enough to do a lot of experiments only on single media.
@@ -20,9 +19,11 @@ We try to adress these two questions by conducting analysis with synthetic data.
 - We conduct analysis to confirm experiments on multiple media make Robyn's ROI estimation much better.
 - We conduct analysis to confirm multi-time experiment on each media make Robyn's ROI estimation accurate.
 
+
 ## How we built it
 
 ### Preparation：Add implementations in siMMMulator
+#### Correlated ad spending and sales history
 - There are a lot of biases in real-world data. The biases make Robyn's ROI estimation inaccurate.
 - We add implementations to siMMMulator.
     - Correlation between media spend and organic sales.
@@ -32,6 +33,16 @@ We try to adress these two questions by conducting analysis with synthetic data.
 
 ![image](https://user-images.githubusercontent.com/40241649/201340102-64a45ceb-7000-41dd-8ebb-36698ec68a6b.png)
 ![image](https://user-images.githubusercontent.com/40241649/201340149-720149e3-b795-4c85-add8-d08458885bcf.png)
+
+#### causal effect (lift) estimation.
+- We also generate causal effect (lift) esimation process.
+- Causal effect (lift) estimation usually has error.
+- The parameter `true_cvr` in siMMMulator is the average causal effect of a unit impression of each media.
+- The variable `noisy_cvr` in siMMMulator is the causal effect of a unit impression of each media on each campaign.
+- We use these notations in the following section:
+    - $\tau$ : `true_cvr`
+    - $\tau_c$  : `noisy_cvr`  
+    - $\hat{\tau_c}$: the estimation of `noisy_cvr`
 
 ### Experiment #1：Variety of experiments
 #### Scripts
@@ -59,6 +70,9 @@ We try to adress these two questions by conducting analysis with synthetic data.
 
 ##### Detail
 ![image](https://user-images.githubusercontent.com/40241649/201340234-5676808f-8de2-4d89-8fc6-c34effa4d1ce.png)
+- MAPE of ROI is calculated as $\frac{1}{M} \sum_m^M |\mathrm{ROI}_m - \hat{\mathrm{ROI}_m}|$. 
+- $\mathrm{ROI}_m$ is a ground truth ROI of channel $m$ , and we calculate if from `true_cvr`, `CPM`, and `spend` in siMMMulator. 
+- $\hat{\mathrm{ROI}_m}$ is an estimated ROI of channel $m$ and a Robyn's output.
 - Each dot is the average MAPE of models after clustering in Robyn, and each bar is the variance. the number of models is from 4 to 7.
 - The best result is calibration by the causal estimates on two channels (FB and TV).
 - Only calibration on TV or FB has much better than the calibration.
@@ -84,13 +98,10 @@ We try to adress these two questions by conducting analysis with synthetic data.
   
 ![image](https://user-images.githubusercontent.com/40241649/201340312-fb3c3145-4461-4316-a656-0500b6e9dbf2.png)
 
+- The figure above shows the absolute error of causal effect (lift) estimation. this error is calculated $\tau - \frac{1}{C}\sum_c^C\hat{\tau}_c$ where $\tau$ represents true causal effect, $\hat{\tau}_c$ represents causal effect estimation on the campaign $c$, and $C$ represents number of campaigns.
+- The figure below shows the MAPE of ROI defined in the precious section.
+- The results show a multi-time experiment decreased errors in the causal effect estimation and MAPE of ROI.
 
-
-
-## Challenges we ran into
-
-- Creating realistic data generation assumptions.
-- Understanding the internal structure (optimization, various parameters) from Robyn code around calibration.
 
 ## Accomplishments that we're proud of
 
@@ -105,9 +116,14 @@ We try to adress these two questions by conducting analysis with synthetic data.
 - If we can conduct experiments on all media, it's the best. If cannot, it is better that cover as much media as possible.
 - If we can conduct experiments as many as possible on each media, that makes our MMM results more accurate.
 
+## Challenges we ran into
+
+- Creating realistic data generation assumptions.
+- Understanding the internal structure (optimization, various parameters) from Robyn code around calibration.
+
 ## What's next?
 
-- Theoretical guarantees.
+- Theoretical guarantees of our results.
 - Implementation of data generation assumptions for complex relationships between organic sales and media spends, etc.
     - Reverse causality：Higher sales allow for a larger budget allocation.
     - Robust extrapolation:：MMM model is fitted to limited historical data and expected to provide insights outside the scope of this data. （e.g., Wide range ad spend）
