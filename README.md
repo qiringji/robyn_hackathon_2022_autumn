@@ -98,7 +98,7 @@ We try to address these two questions by conducting an analysis with synthetic d
   
 ![image](https://user-images.githubusercontent.com/40241649/201340312-fb3c3145-4461-4316-a656-0500b6e9dbf2.png)
 
-- The figure above shows the absolute error of causal effect (lift) estimation. this error is calculated $$\tau - \frac{1}{C}\sum_c^C\hat{\tau}_c,$$ where $\tau$ represents true causal effect, $\hat{\tau}_c$ represents causal effect estimation on the campaign $c$, and $C$ represents number of campaigns.
+- The figure above shows the absolute error of causal effect (lift) estimation. This error is calculated $$|\tau - \frac{1}{C}\sum_c^C\hat{\tau}_c|,$$ where $\tau$ represents true causal effect, $\hat{\tau}_c$ represents causal effect estimation on the campaign $c$, and $C$ represents the number of campaigns used for calibration.
 - The figure below shows the MAPE of ROI defined in the previous section.
 - The results show a multi-time experiment decreased errors in the causal effect estimation and MAPE of ROI.
 
